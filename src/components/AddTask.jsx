@@ -3,8 +3,14 @@ import { AppContext } from "../context/AppContext";
 import { toast } from "react-toastify";
 
 const AddTask = () => {
-  const { setTaskToUpdate, addTask, taskToUpdate, updateTask, today } =
-    useContext(AppContext);
+  const {
+    setTaskToUpdate,
+    addTask,
+    taskToUpdate,
+    updateTask,
+    today,
+    taskList,
+  } = useContext(AppContext);
   const tName = useRef();
   const tDate = useRef();
 
