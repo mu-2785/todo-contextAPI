@@ -6,6 +6,7 @@ export const AppContext = createContext();
 export default function AppContextProvider({ children }) {
   const [taskList, setTaskList] = useState([]); //  it contain all the tasks
   const [taskToUpdate, setTaskToUpdate] = useState([]); //  it contains the task to update
+  const [darkTheme, setDarkTheme] = useState(false);  //  this state will handle the dark and light theme
 
   console.log("app context");
 
@@ -104,6 +105,8 @@ export default function AppContextProvider({ children }) {
     taskToUpdate,
     setTaskToUpdate,
     today,
+    darkTheme,
+    setDarkTheme,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

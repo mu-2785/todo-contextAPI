@@ -1,6 +1,6 @@
 
 
-.m_app
+.m_app_light
 {
     border: 1px solid gray;
     /* width: 50%; */
@@ -11,7 +11,20 @@
     padding-right: 10rem;
     border-radius: 10px;
     overflow-y: scroll;
-    background-color: gray ;
+    background-color: rgb(204, 201, 201) ;
+}
+.m_app_dark
+{
+    border: 1px solid gray;
+    /* width: 50%; */
+    height: 100vh;
+    margin:auto;
+    padding: 1rem;
+    padding-left: 10rem;
+    padding-right: 10rem;
+    border-radius: 10px;
+    overflow-y: scroll;
+    background-color: rgb(71, 77, 90) ;
 }
 
 .m_navbar
@@ -91,6 +104,18 @@
     border: none;
 }
 .m_login_logout
+{
+    height: 50%;
+    width: 5rem;
+    padding: 5px;
+    border-radius: 10px;
+    background-color:rgb(218, 218, 160);
+    border: none;
+    margin: 1rem;
+    
+    
+}
+.m_theme
 {
     height: 50%;
     width: 5rem;
