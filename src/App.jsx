@@ -8,10 +8,15 @@ import { AppContext } from "./context/AppContext";
 
 const App = () => {
   const { user, loginWithPopup, isAuthenticated, logout } = useAuth0();
-  const { darkTheme, setDarkTheme } = useContext(AppContext);
+  const { darkTheme, setDarkTheme, cardView, setCardView } =
+    useContext(AppContext);
 
   const handleThemeButtons = () => {
     setDarkTheme(!darkTheme);
+  };
+
+  const handleViewButtons = () => {
+    setCardView(!cardView);
   };
 
   return (
@@ -24,6 +29,16 @@ const App = () => {
         ) : (
           <button className="m_theme" onClick={handleThemeButtons}>
             Dark
+          </button>
+        )}
+
+        {cardView ? (
+          <button className="m_view_button" onClick={handleViewButtons}>
+            List
+          </button>
+        ) : (
+          <button className="m_view_button" onClick={handleViewButtons}>
+            Card
           </button>
         )}
 

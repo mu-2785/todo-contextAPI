@@ -3,7 +3,7 @@ import { AppContext } from "../context/AppContext";
 import Task from "./Task";
 
 const TaskList = () => {
-  const { taskList, deleteTask, setComplete, updateTask } =
+  const { taskList, deleteTask, setComplete, updateTask, cardView } =
     useContext(AppContext);
 
   const [taskStatus, setTaskStatus] = useState(false);
@@ -26,7 +26,8 @@ const TaskList = () => {
   };
 
   return (
-    <div className="m_tasklist">
+    // <div className="m_tasklist_card">
+    <div className={cardView ? "m_tasklist_card" : ""}>
       {taskList.map((task, index) => {
         taskStatus ? setTaskStatus(false) : <></>;
         return (

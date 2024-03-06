@@ -1,7 +1,15 @@
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+
 const Task = ({ task, handleComplete, handleDelete, handleUpdate }) => {
+  const { cardView } = useContext(AppContext);
+
   return (
-    // <div className="m_task">
-    <div className={task.tStatus ? "m_completed" : "m_task"}>
+    <div
+      className={`${task.tStatus ? "m_completed_task" : ""} ${
+        cardView ? "m_card_view" : ""
+      } m_task`}
+    >
       <input
         type="checkbox"
         name=""
@@ -20,22 +28,24 @@ const Task = ({ task, handleComplete, handleDelete, handleUpdate }) => {
         readOnly
         className="m_input"
       />
-      <button
-        className="m_updatebutton"
-        onClick={() => {
-          handleUpdate(task.id);
-        }}
-      >
-        UPDATE
-      </button>
-      <button
-        className="m_deletebutton"
-        onClick={() => {
-          handleDelete(task.id);
-        }}
-      >
-        DELETE
-      </button>
+      <div className="m_button_container">
+        <button
+          className="m_updatebutton"
+          onClick={() => {
+            handleUpdate(task.id);
+          }}
+        >
+          UPDATE
+        </button>
+        <button
+          className="m_deletebutton"
+          onClick={() => {
+            handleDelete(task.id);
+          }}
+        >
+          DELETE
+        </button>
+      </div>
     </div>
     // </div>
   );
