@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export const AppContext = createContext();
@@ -6,6 +6,21 @@ export const AppContext = createContext();
 export default function AppContextProvider({ children }) {
   const [taskList, setTaskList] = useState([]); //  it contain all the tasks
   const [taskToUpdate, setTaskToUpdate] = useState([]); //  it contains the task to update
+
+  console.log("app context");
+
+  useEffect(() => {
+    //  useEffect to fetch data from localStorage
+    const storedTask = JSON.parse(localStorage.getItem("taskListData")) || [];
+    if (storedTask.length != 0) {
+      setTaskList([...storedTask]);
+    }
+  }, []);
+
+  useEffect(() => {
+    //  useEffect to store data in local storage
+    localStorage.setItem("taskListData", JSON.stringify(taskList));
+  }, [taskList]);
 
   const addTask = (tName, tDate, tIndex) => {
     //  function to add a new task
