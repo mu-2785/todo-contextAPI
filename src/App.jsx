@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Home from "./components/Home";
 import { useContext } from "react";
 import { AppContext } from "./context/AppContext";
+import Pagination from "./components/Pagination";
 
 const App = () => {
   const { user, loginWithPopup, isAuthenticated, logout } = useAuth0();
@@ -68,6 +69,7 @@ const App = () => {
         <>
           <AddTask />
           <TaskList />
+          <Pagination />
         </>
       )}
     </center>

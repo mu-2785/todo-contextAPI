@@ -8,8 +8,8 @@ export default function AppContextProvider({ children }) {
   const [taskToUpdate, setTaskToUpdate] = useState([]); //  it contains the task to update
   const [darkTheme, setDarkTheme] = useState(false); //  this state will handle the dark and light theme
   const [cardView, setCardView] = useState(false); //  this state will handle card view and list view
-
-  console.log("app context");
+  const [currentPage, setCurrentPage] = useState(1); //  this state will handle current page
+  const [totalPages, setTotalPages] = useState(taskList.length / 6); //  this state will handle total no of pages
 
   useEffect(() => {
     //  useEffect to fetch data from localStorage
@@ -22,6 +22,7 @@ export default function AppContextProvider({ children }) {
   useEffect(() => {
     //  useEffect to store data in local storage
     localStorage.setItem("taskListData", JSON.stringify(taskList));
+    setTotalPages(taskList.length / 6);
   }, [taskList]);
 
   const addTask = (tName, tDate, tIndex) => {
@@ -110,6 +111,10 @@ export default function AppContextProvider({ children }) {
     setDarkTheme,
     cardView,
     setCardView,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    setTotalPages,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
