@@ -55,8 +55,6 @@
     margin: .5rem;
 }
 
-
-
 .m_task
 {
     border: 1px solid black;
@@ -222,6 +220,7 @@
     border-radius: 10px;
     background-color: rgb(241, 154, 141);
     border: none;
+    pointer-events: all;
 }
 
 .m_button_container

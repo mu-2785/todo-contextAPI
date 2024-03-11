@@ -9,13 +9,16 @@ export default function AppContextProvider({ children }) {
   const [darkTheme, setDarkTheme] = useState(false); //  this state will handle the dark and light theme
   const [cardView, setCardView] = useState(false); //  this state will handle card view and list view
   const [currentPage, setCurrentPage] = useState(1); //  this state will handle current page
-  const [totalPages, setTotalPages] = useState(taskList.length / 6); //  this state will handle total no of pages
+  const [taskToShow, setTaskToShow] = useState([]); // this state will contain only filtered task
+  const [totalPages, setTotalPages] = useState(taskToShow.length / 6); //  this state will handle total no of pages
 
   useEffect(() => {
-    //  useEffect to fetch data from localStorage
+    // useEffect to fetch data from localStorage
     const storedTask = JSON.parse(localStorage.getItem("taskListData")) || [];
-    if (storedTask.length != 0) {
-      setTaskList([...storedTask]);
+
+    if (storedTask.length) {
+      setTaskList((prevTaskList) => [...prevTaskList, ...storedTask]);
+      setTaskToShow((prevTaskList) => [...prevTaskList, ...storedTask]);
     }
   }, []);
 
@@ -32,6 +35,10 @@ export default function AppContextProvider({ children }) {
       ...taskList,
       { tName: `${tName}`, tDate: `${tDate}`, id: `${id}`, tStatus: false },
     ]);
+    setTaskToShow([
+      ...taskList,
+      { tName: `${tName}`, tDate: `${tDate}`, id: `${id}`, tStatus: false },
+    ]);
     toast.success("TASK ADDED ");
   };
 
@@ -43,6 +50,7 @@ export default function AppContextProvider({ children }) {
       }
     });
     setTaskList([...updatedTaskList]);
+    setTaskToShow([...updatedTaskList]);
 
     toast.success("TASK DELETED");
   };
@@ -55,6 +63,7 @@ export default function AppContextProvider({ children }) {
       }
     });
     setTaskList([...taskList]);
+    setTaskToShow([...taskList]);
     toast.success("TASK COMPLETED");
   };
 
@@ -74,6 +83,7 @@ export default function AppContextProvider({ children }) {
         }
       });
       setTaskList([...taskList]);
+      setTaskToShow([...taskList]);
       toast.success("TASK UPDATED ");
     } catch (error) {
       toast.warning("PROVIDE THE UPDATE");
@@ -96,6 +106,41 @@ export default function AppContextProvider({ children }) {
     return today;
   };
 
+  const filterElements = (searchParams) => {
+    const filteredItems = taskList.filter((task) => {
+      if (task.tName.toLowerCase().includes(searchParams.toLowerCase())) {
+        return task;
+      }
+    });
+
+    if (filteredItems.length > 0) {
+      setTaskToShow([...filteredItems]);
+      setTotalPages(taskToShow.length / 6);
+    } else {
+      setTaskToShow([...taskList]);
+      setTotalPages(taskList.length / 6);
+    }
+  };
+
+  const filterByStatus = (val) => {
+    console.log(val);
+
+    const filteredArray = taskList.filter((task) => {
+      if (val === "complete") {
+        if (task.tStatus === true) {
+          return task;
+        }
+      } else if (val === "incomplete") {
+        if (task.tStatus === false) {
+          return task;
+        }
+      } else {
+        return task;
+      }
+    });
+    setTaskToShow(filteredArray);
+  };
+
   const value = {
     //  data is packed in value and passed as value
     taskList,
@@ -115,6 +160,10 @@ export default function AppContextProvider({ children }) {
     setCurrentPage,
     totalPages,
     setTotalPages,
+    taskToShow,
+    setTaskToShow,
+    filterElements,
+    filterByStatus,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
