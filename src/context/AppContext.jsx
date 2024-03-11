@@ -9,9 +9,8 @@ export default function AppContextProvider({ children }) {
   const [darkTheme, setDarkTheme] = useState(false); //  this state will handle the dark and light theme
   const [cardView, setCardView] = useState(false); //  this state will handle card view and list view
   const [currentPage, setCurrentPage] = useState(1); //  this state will handle current page
-  const [totalPages, setTotalPages] = useState(taskList.length / 6); //  this state will handle total no of pages
   const [taskToShow, setTaskToShow] = useState([]); // this state will contain only filtered task
-  
+  const [totalPages, setTotalPages] = useState(taskToShow.length / 6); //  this state will handle total no of pages
 
   useEffect(() => {
     // useEffect to fetch data from localStorage
@@ -108,19 +107,18 @@ export default function AppContextProvider({ children }) {
   };
 
   const filterElements = (searchParams) => {
-    console.log("search", searchParams);
-    console.log("taskList", taskList);
-
     const filteredItems = taskList.filter((task) => {
-      if (task.tName.toLowerCase().startsWith(searchParams.toLowerCase())) {
+      if (task.tName.toLowerCase().includes(searchParams.toLowerCase())) {
         return task;
       }
     });
 
     if (filteredItems.length > 0) {
       setTaskToShow([...filteredItems]);
+      setTotalPages(taskToShow.length / 6);
     } else {
       setTaskToShow([...taskList]);
+      setTotalPages(taskList.length / 6);
     }
   };
 
@@ -140,8 +138,6 @@ export default function AppContextProvider({ children }) {
         return task;
       }
     });
-
-    console.log(filteredArray);
     setTaskToShow(filteredArray);
   };
 
@@ -168,7 +164,6 @@ export default function AppContextProvider({ children }) {
     setTaskToShow,
     filterElements,
     filterByStatus,
-    
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

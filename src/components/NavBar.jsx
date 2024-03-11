@@ -1,7 +1,7 @@
 import { AppContext } from "../context/AppContext";
 import { useContext, useRef } from "react";
 
-const NavBar = ({ isAuthenticated, user }) => {
+const NavBar = ({ isAuthenticated, user , loginWithPopup }) => {
   const {
     darkTheme,
     setDarkTheme,
@@ -9,10 +9,7 @@ const NavBar = ({ isAuthenticated, user }) => {
     setCardView,
     filterElements,
     filterByStatus,
-    setShowInComplete,
-    setShowComplete,
-    showInComplete,
-    showComplete,
+    
   } = useContext(AppContext);
 
   const searchParamRef = useRef(); //  access the search bar

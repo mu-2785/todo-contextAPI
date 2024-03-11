@@ -21,7 +21,7 @@ const App = () => {
   return (
     <center className={darkTheme ? "m_app_dark" : "m_app_light"}>
      
-      <NavBar isAuthenticated={isAuthenticated} user={user} ></NavBar>
+      <NavBar isAuthenticated={isAuthenticated} user={user} loginWithPopup={loginWithPopup} ></NavBar>
 
       {!isAuthenticated ? (
         <Home />
